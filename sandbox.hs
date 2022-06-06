@@ -836,7 +836,7 @@ toJadenCase [x] = [x]
 toJadenCase (x1 : x2 : xs) = if x1 == ' ' && isLower x2 then x1 : toUpper x2 : toJadenCase xs else x1 : toJadenCase (x2 : xs)
 
 rawSYS :: Double -> Double
-rawSYS r = (fst $ head $ sortOn (\x -> r - snd x) [(id, 40), ((\r -> 2 * (r - 20.0)), 44), ((\r -> ((9 * r) - 55) / 7), 79), ((\r -> (r * 0.25) + 75), 99)]) r
+rawSYS r = (fst $ head $ sortOn (\x -> r - snd x) [(id, 40), ((\r -> 2 * (r - 20.0)), 44), ((\r -> ((9 * r) - 55) / 7), 79), ((\r -> (r * 0.25) + 75), 100)]) r
   
   
   
