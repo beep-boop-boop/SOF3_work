@@ -1,0 +1,224 @@
+abstract class Component{
+  #ComponentType type
+  #Entity parent
+  }
+
+class AINavigation{
+  +RigidBody rb
+  +Transform t 
+  +Attributes attributes
+  +SteeringBehaviour behaviour
+  +SteeringAcceleration steeringOutput
+  -void applySteering()
+  }
+
+class Pirate{
+  -int factionld
+  -int plunder
+  #boolean isAlive
+  #int health
+  #int attackDmg
+  +void shoot(Vector2 dir)
+  }
+
+class PlayerController{
+  -Player player
+  -float speed
+  }
+
+class Renderable{
+  #Sprite sprite
+  }
+
+class RigidBody{
+  +int bodyId
+  +PhysicsBodyType bodyType
+  +Vector2 halfDim
+  +void BeginContact()
+  +void EndContact()
+  +void applyForce(Vector2 force)
+  }
+
+class TileMap{
+  +TileMap map
+  +TileMapRenderer renderer
+  +void render()
+  +void BeginContact()
+  +void EndContact()
+  }
+
+class Transform{
+  -Vector2 position
+  -Vector2 scale
+  -float rotation
+  }
+
+class Attributes{
+  +float boundingRadius
+  +float maxSpd
+  +float maxAcc
+  +float maxAngSpd
+  +float maxAngAcc
+  +boolean isTagged
+  }
+
+
+"AINavigation" --|> Component
+"Pirate" --|> Component
+"PlayerController" --|> Component
+"Renderable" --|> Component
+"RigidBody" --|> Component
+"TileMap" --|> Component
+"Transform" ---|> Component
+"Attributes" --|> AINavigation
+
+class Entity{
+  -int entityCount
+  -String entityName
+  -ArrayList components
+  +void raiseEvents(ComponentEvent... events)
+  }
+
+class CannonBall{
+  -float speed
+  -Ship parent
+  -void fire(Vector2 pos, Vector 2 dir, Ship sender)
+  }
+
+class WorldMap{
+  
+  }
+
+class Building{
+  -String buildingName
+  -int atlas_id
+  -boolean isFlag
+  +void create(Vector2 pos, String name)
+  +void destroy()
+  +void BeginContact(Collisioninfo info)
+  +void EndContact(Collisioninfo info)
+  +void EnterTrigger(Collisioninfo info)
+  +void ExitTrigger(Collisioninfo info)
+  }
+
+class Ship{
+  -ObjectMap shipDirections
+  -Vector2 currentDir
+  +boolean isAlive()
+  +float getAttackRange()
+  +void plunder(int money)
+  +void shoot()
+  }
+
+class College{
+  -ArrayList buildingNames
+  -ArrayList buildings
+  -void spawn(String colour)
+  +void isAlive()
+  }
+
+class Chest{
+  }
+
+class DuckMonster{
+  -Vector2 currentDir
+  -boolean isActive
+  -int cannonTimer  
+  -int poisonTimer
+  -boolean poisoning
+  -int maxHealth
+  -string dir
+  +void place(float x, float y)
+  +void deactivate()
+  +boolean isActive()
+  +String getDir()
+  +boolean isAlive()
+  +int getPoisionTimer()
+  +void setHealth()
+  }
+
+class Powerup{
+  -int type
+  -boolean justCollected
+  +void place(float x, float y)
+  +void updateType(int newtype)
+  +void applyPowUp(Player p)
+  }
+
+class NPCShip{
+  }
+
+class Player{
+  }
+
+
+
+"CannonBall" --|> Entity
+"WorldMap" --|> Entity
+"Building" --|> Entity
+"Ship" --|> Entity
+"College" --|> Entity
+"Chest" --|> Entity
+"DuckMonster" --|> Entity
+"Powerup" --|> Entity
+"NPCShip" --|> Ship
+"Player" --|> Ship
+
+
+"Pirate" --* Ship
+"Renderable" --* Ship
+"Renderable" --* Cannonball
+"RigidBody" --* Cannonball
+"Transform" --* Cannonball
+"Transform" --* Ship
+
+"Renderable" --* Powerup
+"RigidBody" --* Powerup
+"Transform" --* Powerup
+
+
+"Renderable" --* DuckMonster
+"RigidBody" --* DuckMonster
+"Transform" --* DuckMonster
+
+"Renderable" ---* Chest
+"Transform" --* Chest
+
+
+
+
+class DataShip{
+  +Vector2 position
+  +String faction
+  +String colour
+  +String type
+  }
+
+class DataCollege{
+  +String factionID
+  +boolean destroyed
+  }
+
+class DataQuest{
+  +String type
+  +String name
+  +String description
+  +int reward
+  +boolean completed
+  +Vector2 loc
+  +float radius
+  +Pirate target
+  }
+
+class SaveData{
+    +int health_level
+    +int ammo_level
+    +int speed_level
+    +int damage_level
+    +int health
+    +int plunder
+    +int cannon_balls
+    +int points
+    +float x
+    +float y
+  }
